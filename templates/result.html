@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="nav-content">
+        <i class="fas fa-rocket"></i>
+        <span class="nav-title">CareerMatch AI</span>
+    </div>
+</div>
+
+<div class="container">
+    <div class="result-header">
+        <h1><i class="fas fa-check-circle"></i> Analysis Complete!</h1>
+        <p class="subtitle">Here's your comprehensive resume match report</p>
+    </div>
+
+    <div class="results-grid">
+        <div class="result-card score-card">
+            <div class="score-value">{{ score }}%</div>
+            <div class="score-label">Match Score</div>
+            <div class="score-bar">
+                <div class="score-fill" style="width: {{ score }}%"></div>
+            </div>
+        </div>
+
+        <div class="result-card category-card">
+            <div class="card-content">
+                <i class="fas fa-briefcase"></i>
+                <h2>{{ category }}</h2>
+                <p>Recommended Role</p>
+            </div>
+        </div>
+
+        <div class="result-card level-card level-{{ level|lower }}">
+            <div class="card-content">
+                <i class="fas fa-flag"></i>
+                <h2>{{ level }}</h2>
+                <p>Candidate Level</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="insights-section">
+        <h2>Match Insights</h2>
+        {% if score >= 70 %}
+            <div class="insight-box success">
+                <i class="fas fa-star"></i>
+                <div>
+                    <h3>Excellent Match!</h3>
+                    <p>Your resume is highly aligned with this job position. You have the skills and experience required.</p>
+                </div>
+            </div>
+        {% elif score >= 40 %}
+            <div class="insight-box info">
+                <i class="fas fa-lightbulb"></i>
+                <div>
+                    <h3>Moderate Match</h3>
+                    <p>Your resume has relevant experience. Consider highlighting specific achievements that match the job description.</p>
+                </div>
+            </div>
+        {% else %}
+            <div class="insight-box warning">
+                <i class="fas fa-exclamation-circle"></i>
+                <div>
+                    <h3>Development Opportunity</h3>
+                    <p>Your resume needs improvement for this role. Focus on gaining skills mentioned in the job description.</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="action-buttons">
+        <a href="/" class="btn-primary">
+            <i class="fas fa-redo"></i> Analyze Another Resume
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

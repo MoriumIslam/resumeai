@@ -1,0 +1,8 @@
+Data Scientist:
+Looking for a Data Scientist with experience in Python, Machine Learning, Pandas, NumPy, and Deep Learning. Experience with NLP is a plus.
+
+Software Engineer:
+We are hiring a Software Engineer skilled in Java, Spring Boot, REST APIs, and Microservices architecture.
+
+Frontend Developer:
+Looking for a frontend developer with React.js, JavaScript, HTML, CSS, and UI/UX design experience.

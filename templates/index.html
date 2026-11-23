@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Analyzer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="nav-content">
+        <i class="fas fa-rocket"></i>
+        <span class="nav-title">CareerMatch AI</span>
+    </div>
+</div>
+
+<div class="container">
+    <div class="hero-section">
+        <h1><i class="fas fa-brain"></i> AI Resume Analyzer</h1>
+        <p class="subtitle">Discover how well your resume matches job opportunities</p>
+    </div>
+
+    <form action="/analyze" method="POST" enctype="multipart/form-data" class="form-card" id="uploadForm">
+        
+        <div class="form-group">
+            <label class="form-label">
+                <i class="fas fa-file-pdf"></i> Upload Your Resume (PDF)
+            </label>
+            <div class="file-input-label-wrapper">
+                <input type="file" name="resume" id="resume-file" accept="application/pdf,.pdf" required class="file-input-custom">
+                <label for="resume-file" class="file-input-label">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span id="file-span">Click to upload or drag and drop</span>
+                </label>
+            </div>
+            <small class="file-hint">PDF format, max 10MB</small>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">
+                <i class="fas fa-briefcase"></i> Paste Job Description
+            </label>
+            <textarea name="job_desc" id="job-desc" rows="10" required placeholder="Paste the job description here...">{{ jobs }}</textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+            <i class="fas fa-magic"></i> Analyze Now
+        </button>
+    </form>
+
+    <div class="features-section">
+        <h2>How It Works</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-upload"></i></div>
+                <h3>Upload</h3>
+                <p>Submit your resume in PDF format</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-gears"></i></div>
+                <h3>Process</h3>
+                <p>AI analyzes and extracts key information</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+                <h3>Score</h3>
+                <p>Get detailed match score and insights</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const fileInput = document.getElementById('resume-file');
+    const fileSpan = document.getElementById('file-span');
+    const submitBtn = document.getElementById('submitBtn');
+    const jobDesc = document.getElementById('job-desc');
+    
+    // Update label when file is selected
+    if(fileInput) {
+        fileInput.addEventListener('change', function(e) {
+            if(this.files && this.files.length > 0) {
+                const fileName = this.files[0].name;
+                fileSpan.innerHTML = '<i class="fas fa-check-circle"></i> ' + fileName;
+            } else {
+                fileSpan.innerHTML = 'Click to upload or drag and drop';
+            }
+        });
+    }
+    
+    // Handle form submission
+    document.querySelector('form').addEventListener('submit', function(e) {
+        if(!fileInput || !fileInput.files || fileInput.files.length === 0) {
+            e.preventDefault();
+            alert('Please select a PDF file to upload');
+            return false;
+        }
+        
+        if(!jobDesc.value.trim()) {
+            e.preventDefault();
+            alert('Please enter a job description');
+            return false;
+        }
+        
+        if(submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+        }
+    });
+</script>
+
+</body>
+</html>
